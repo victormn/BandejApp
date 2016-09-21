@@ -67,21 +67,20 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
             viewHolder.optLayout.setVisibility(View.VISIBLE);
         } else {
             viewHolder.ratingBar.setVisibility(View.GONE);
-            viewHolder.ratingBar.setRating(0);
-
-            viewHolder.opt1.setChecked(false);
-            viewHolder.opt2.setChecked(false);
-            viewHolder.opt3.setChecked(false);
             viewHolder.optLayout.setVisibility(View.GONE);
         }
 
         // Settando o texto das opções
-        if (viewHolder.ratingBar.getRating() <= 1.5f){
+        if (currentCategoria.getRatingAlimento() <= 1.5f){
             viewHolder.opt1.setText("Amarga");
             viewHolder.opt2.setText("Fria");
             viewHolder.opt3.setText("Não gosto desse alimento");
+
+            //viewHolder.opt2.setChecked(false);
+            //viewHolder.opt1.setChecked(false);
+            //viewHolder.opt3.setChecked(false);
         }else {
-            if (viewHolder.ratingBar.getRating() <= 3.5f) {
+            if (currentCategoria.getRatingAlimento() <= 3.5f) {
                 viewHolder.opt1.setText("Sem Gosto");
                 viewHolder.opt2.setText("Temperatura Razoável");
                 viewHolder.opt3.setText("Gosto pouco desse alimento");
@@ -101,15 +100,15 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
         viewHolder.ratingBar.setTag(position);
         viewHolder.ratingBar.setRating(currentCategoria.getRatingAlimento());
 
-        viewHolder.opt1.setOnCheckedChangeListener(onCheckChangedListener(viewHolder, position, convertView, parent,false));
+        viewHolder.opt1.setOnCheckedChangeListener(onCheckChangedListener(viewHolder, position, convertView, parent, false));
         viewHolder.opt1.setTag(position);
         viewHolder.opt1.setChecked(currentCategoria.isOpt1Alimento());
 
-        viewHolder.opt2.setOnCheckedChangeListener(onCheckChangedListener(viewHolder, position, convertView, parent,false));
+        viewHolder.opt2.setOnCheckedChangeListener(onCheckChangedListener(viewHolder, position, convertView, parent, false));
         viewHolder.opt2.setTag(position);
         viewHolder.opt2.setChecked(currentCategoria.isOpt2Alimento());
 
-        viewHolder.opt3.setOnCheckedChangeListener(onCheckChangedListener(viewHolder, position, convertView, parent,false));
+        viewHolder.opt3.setOnCheckedChangeListener(onCheckChangedListener(viewHolder, position, convertView, parent, false));
         viewHolder.opt3.setTag(position);
         viewHolder.opt3.setChecked(currentCategoria.isOpt3Alimento());
 
@@ -143,7 +142,8 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
                 currentCategoria.setOpt2Alimento(viewHolder.opt2.isChecked());
                 currentCategoria.setOpt3Alimento(viewHolder.opt3.isChecked());
 
-                if(refresh)getView(position, convertView, parent);
+               // if(refresh)getView(position, convertView, parent);
+                getView(position, convertView, parent);
             }
         };
     }
