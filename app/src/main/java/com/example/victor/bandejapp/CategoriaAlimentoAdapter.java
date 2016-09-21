@@ -75,12 +75,29 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
             viewHolder.optLayout.setVisibility(View.GONE);
         }
 
+        // Settando o texto das opções
+        if (viewHolder.ratingBar.getRating() <= 1.5f){
+            viewHolder.opt1.setText("Amarga");
+            viewHolder.opt2.setText("Fria");
+            viewHolder.opt3.setText("Não gosto desse alimento");
+        }else {
+            if (viewHolder.ratingBar.getRating() <= 3.5f) {
+                viewHolder.opt1.setText("Sem Gosto");
+                viewHolder.opt2.setText("Temperatura Razoável");
+                viewHolder.opt3.setText("Gosto pouco desse alimento");
+            }else{
+                viewHolder.opt1.setText("Saborosa");
+                viewHolder.opt2.setText("Muito bem temperada");
+                viewHolder.opt3.setText("Gosto muito desse alimento");
+            }
+        }
+
         // Atualizando os valores dos itens da tela
         viewHolder.checkBox.setOnCheckedChangeListener(onCheckChangedListener(viewHolder, position, convertView, parent, true));
         viewHolder.checkBox.setTag(position);
         viewHolder.checkBox.setChecked(currentCategoria.isCheckAlimento());
 
-        viewHolder.ratingBar.setOnRatingBarChangeListener(onRatingChangedListener(position));
+        viewHolder.ratingBar.setOnRatingBarChangeListener(onRatingChangedListener(position, convertView, parent));
         viewHolder.ratingBar.setTag(position);
         viewHolder.ratingBar.setRating(currentCategoria.getRatingAlimento());
 
@@ -102,12 +119,13 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
         return convertView;
     }
 
-    private RatingBar.OnRatingBarChangeListener onRatingChangedListener(final int position) {
+    private RatingBar.OnRatingBarChangeListener onRatingChangedListener(final int position,  final View convertView, final ViewGroup parent) {
         return new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float f, boolean b) {
 
                 getItem(position).setRatingAlimento(f);
+                getView(position, convertView, parent);
             }
         };
     }
