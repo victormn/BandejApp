@@ -11,10 +11,19 @@ public class CategoriaAlimento {
     private float ratingAlimento;
     private boolean checkAlimento;
 
+    private boolean opt1Alimento;
+    private boolean opt2Alimento;
+    private boolean opt3Alimento;
+
+
     public CategoriaAlimento(String tipoAlimento){
         this.tipoAlimento = tipoAlimento;
         this.ratingAlimento = 0;
         this.checkAlimento = false;
+
+        this.opt1Alimento = false;
+        this.opt2Alimento = false;
+        this.opt3Alimento = false;
     }
 
     public String getTipoAlimento() {return tipoAlimento;}
@@ -23,12 +32,30 @@ public class CategoriaAlimento {
 
     public boolean isCheckAlimento() {return checkAlimento;}
 
+    public boolean isOpt1Alimento() {return opt1Alimento;}
+
+    public boolean isOpt2Alimento() {return opt2Alimento;}
+
+    public boolean isOpt3Alimento() {return opt3Alimento;}
+
     public void setRatingAlimento(float ratingAlimento){
         this.ratingAlimento = ratingAlimento;
     }
 
     public void setCheckAlimento(boolean checkAlimento) {
         this.checkAlimento = checkAlimento;
+    }
+
+    public void setOpt1Alimento(boolean opt1Alimento) {
+        this.opt1Alimento = opt1Alimento;
+    }
+
+    public void setOpt2Alimento(boolean opt2Alimento) {
+        this.opt2Alimento = opt2Alimento;
+    }
+
+    public void setOpt3Alimento(boolean opt3Alimento) {
+        this.opt3Alimento = opt3Alimento;
     }
 
     public int getIconeAlimento() {
