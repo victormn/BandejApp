@@ -1,5 +1,7 @@
 package com.example.victor.bandejapp;
 
+import android.widget.CheckBox;
+
 /**
  * Created by Victor on 20/09/2016.
  */
@@ -7,18 +9,26 @@ public class CategoriaAlimento {
 
     private String tipoAlimento;
     private float ratingAlimento;
+    private boolean checkAlimento;
 
     public CategoriaAlimento(String tipoAlimento){
         this.tipoAlimento = tipoAlimento;
         this.ratingAlimento = 0;
+        this.checkAlimento = false;
     }
 
-    public String getTipoAlimento() {return tipoAlimento; }
+    public String getTipoAlimento() {return tipoAlimento;}
 
-    public float getRatingAlimento(){return ratingAlimento; }
+    public float getRatingAlimento(){return ratingAlimento;}
+
+    public boolean isCheckAlimento() {return checkAlimento;}
 
     public void setRatingAlimento(float ratingAlimento){
         this.ratingAlimento = ratingAlimento;
+    }
+
+    public void setCheckAlimento(boolean checkAlimento) {
+        this.checkAlimento = checkAlimento;
     }
 
     public int getIconeAlimento() {

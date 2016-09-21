@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -23,6 +24,7 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento>{
         TextView tipoAlimento;
         ImageView iconeAlimento;
         RatingBar ratingBar;
+        CheckBox checkBox;
     }
 
 
@@ -43,30 +45,54 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento>{
             viewHolder.iconeAlimento = (ImageView) convertView.findViewById(R.id.iconeAlimento);
             viewHolder.tipoAlimento = (TextView) convertView.findViewById(R.id.tipoAlimento);
             viewHolder.ratingBar = (RatingBar) convertView.findViewById(R.id.ratingBar);
+            viewHolder.checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
 
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.ratingBar.setOnRatingBarChangeListener(onRatingChangedListener(viewHolder, position));
+        if(getItem(position).isCheckAlimento()){
+            viewHolder.ratingBar.setVisibility(View.VISIBLE);
+        }else{
+            viewHolder.ratingBar.setVisibility(View.GONE);
+            viewHolder.ratingBar.setRating(0);
+        }
+
+        viewHolder.checkBox.setOnCheckedChangeListener(onCheckChangedListener(position, convertView, parent));
+        viewHolder.checkBox.setTag(position);
+        viewHolder.checkBox.setChecked(getItem(position).isCheckAlimento());
+
+        viewHolder.ratingBar.setOnRatingBarChangeListener(onRatingChangedListener(position));
         viewHolder.ratingBar.setTag(position);
         viewHolder.ratingBar.setRating(getItem(position).getRatingAlimento());
 
         viewHolder.iconeAlimento.setImageResource(getItem(position).getIconeAlimento());
         viewHolder.tipoAlimento.setText(getItem(position).getTipoAlimento());
 
-
         return convertView;
     }
 
-    private RatingBar.OnRatingBarChangeListener onRatingChangedListener(final ViewHolder holder, final int position) {
+    private RatingBar.OnRatingBarChangeListener onRatingChangedListener(final int position) {
         return new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float f, boolean b) {
 
                 CategoriaAlimento categoria = getItem(position);
                 categoria.setRatingAlimento(f);
+            }
+        };
+    }
+
+    private CheckBox.OnCheckedChangeListener onCheckChangedListener(final int position, final View convertView, final ViewGroup parent) {
+        return new CheckBox.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                CategoriaAlimento categoria = getItem(position);
+                categoria.setCheckAlimento(isChecked);
+
+                getView (position, convertView, parent);
             }
         };
     }

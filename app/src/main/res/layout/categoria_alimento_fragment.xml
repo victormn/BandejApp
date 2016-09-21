@@ -50,19 +50,29 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Opinar"
+                android:id="@+id/checkBox"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp" />
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ratingBar"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"/>
+
+            <!--<LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/nota_layout">
 
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/ratingBar" />
-
-                <!--<FrameLayout
+                <FrameLayout
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp">
@@ -153,9 +163,9 @@
                         android:layout_height="fill_parent"
                         android:id="@+id/maneiroN"
                         android:src="@drawable/maneiro_nop" />
-                </FrameLayout>-->
+                </FrameLayout>
 
-            </LinearLayout>
+            </LinearLayout>-->
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
