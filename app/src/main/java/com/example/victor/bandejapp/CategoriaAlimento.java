@@ -61,7 +61,7 @@ public class CategoriaAlimento {
         switch (tipoAlimento){
             case "Arroz":
                 return R.drawable.arroz;
-            /*case "Arroz Integral":
+            case "Arroz Integral":
                 return R.drawable.arroz_integral;
             case "Feijão":
                 return R.drawable.feijao;
@@ -76,7 +76,7 @@ public class CategoriaAlimento {
             case "Sobremesa":
                 return R.drawable.sobremesa;
             case "Suco":
-                return R.drawable.suco;*/
+                return R.drawable.suco;
         }
 
         return R.drawable.arroz;

@@ -25,7 +25,7 @@ public class MainFragmentList extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        categoriaAlimentos = new ArrayList<CategoriaAlimento>();
+        categoriaAlimentos = new ArrayList<>();
         categoriaAlimentos.add(new CategoriaAlimento("Arroz"));
         categoriaAlimentos.add(new CategoriaAlimento("Arroz Integral"));
         categoriaAlimentos.add(new CategoriaAlimento("Feijão"));

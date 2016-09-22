@@ -72,8 +72,8 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
 
         // Settando o texto das opções
         if (currentCategoria.getRatingAlimento() <= 1.5f){
-            viewHolder.opt1.setText("Amarga");
-            viewHolder.opt2.setText("Fria");
+            viewHolder.opt1.setText("Gosto Ruim");
+            viewHolder.opt2.setText("Temperatura Ruim");
             viewHolder.opt3.setText("Não gosto desse alimento");
 
         }else {
@@ -83,7 +83,7 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
                 viewHolder.opt3.setText("Gosto pouco desse alimento");
             }else{
                 viewHolder.opt1.setText("Saborosa");
-                viewHolder.opt2.setText("Muito bem temperada");
+                viewHolder.opt2.setText("Temperatura Ideal");
                 viewHolder.opt3.setText("Gosto muito desse alimento");
             }
         }

@@ -37,7 +37,8 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:id="@+id/iconeAlimento"
-                    android:src="@drawable/arroz" />
+                    android:src="@drawable/arroz"
+                    android:layout_marginRight="6dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
