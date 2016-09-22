@@ -134,8 +134,6 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
 
                 CategoriaAlimento currentCategoria = getItem(position);
 
-                System.out.println("TESTE " + buttonView.getText());
-
                 if(buttonView == viewHolder.checkBox){
                     currentCategoria.setCheckAlimento(viewHolder.checkBox.isChecked());
                 }
