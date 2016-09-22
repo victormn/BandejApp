@@ -70,8 +70,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/opiniao_layout"
-                android:visibility="gone"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone">
 
                 <CheckBox
                     android:layout_width="wrap_content"

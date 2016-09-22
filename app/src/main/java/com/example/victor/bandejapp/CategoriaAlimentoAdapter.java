@@ -76,9 +76,6 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
             viewHolder.opt2.setText("Fria");
             viewHolder.opt3.setText("Não gosto desse alimento");
 
-            //viewHolder.opt2.setChecked(false);
-            //viewHolder.opt1.setChecked(false);
-            //viewHolder.opt3.setChecked(false);
         }else {
             if (currentCategoria.getRatingAlimento() <= 3.5f) {
                 viewHolder.opt1.setText("Sem Gosto");
@@ -137,13 +134,22 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
 
                 CategoriaAlimento currentCategoria = getItem(position);
 
-                currentCategoria.setCheckAlimento(viewHolder.checkBox.isChecked());
-                currentCategoria.setOpt1Alimento(viewHolder.opt1.isChecked());
-                currentCategoria.setOpt2Alimento(viewHolder.opt2.isChecked());
-                currentCategoria.setOpt3Alimento(viewHolder.opt3.isChecked());
+                System.out.println("TESTE " + buttonView.getText());
 
-               // if(refresh)getView(position, convertView, parent);
-                getView(position, convertView, parent);
+                if(buttonView == viewHolder.checkBox){
+                    currentCategoria.setCheckAlimento(viewHolder.checkBox.isChecked());
+                }
+                if(buttonView == viewHolder.opt1){
+                    currentCategoria.setOpt1Alimento(viewHolder.opt1.isChecked());
+                }
+                if(buttonView == viewHolder.opt2){
+                    currentCategoria.setOpt2Alimento(viewHolder.opt2.isChecked());
+                }
+                if(buttonView == viewHolder.opt3){
+                    currentCategoria.setOpt3Alimento(viewHolder.opt3.isChecked());
+                }
+
+                if(refresh)getView(position, convertView, parent);
             }
         };
     }

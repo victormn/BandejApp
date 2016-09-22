@@ -46,9 +46,7 @@ public class CategoriaAlimento {
         this.checkAlimento = checkAlimento;
     }
 
-    public void setOpt1Alimento(boolean opt1Alimento) {
-        this.opt1Alimento = opt1Alimento;
-    }
+    public void setOpt1Alimento(boolean opt1Alimento) { this.opt1Alimento = opt1Alimento; }
 
     public void setOpt2Alimento(boolean opt2Alimento) {
         this.opt2Alimento = opt2Alimento;
