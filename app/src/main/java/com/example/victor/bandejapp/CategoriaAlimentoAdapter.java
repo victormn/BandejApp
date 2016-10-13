@@ -1,6 +1,7 @@
 package com.example.victor.bandejapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
  */
 public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
 
+    private ArrayList<CategoriaAlimento> categoriaAlimentos;
+
     public static class ViewHolder {
         TextView tipoAlimento;
         ImageView iconeAlimento;
@@ -32,6 +35,11 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
 
     public CategoriaAlimentoAdapter(Context context, ArrayList<CategoriaAlimento> categorias) {
         super(context, 0, categorias);
+        categoriaAlimentos = new ArrayList<>();
+    }
+
+    public ArrayList<CategoriaAlimento> getCategoriaAlimentos() {
+        return categoriaAlimentos;
     }
 
     @Override
@@ -111,6 +119,13 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
 
         viewHolder.iconeAlimento.setImageResource(getItem(position).getIconeAlimento());
         viewHolder.tipoAlimento.setText(currentCategoria.getTipoAlimento());
+
+        int igual = 0;
+
+        for (int i = 0; i<categoriaAlimentos.size(); i++)
+            if(categoriaAlimentos.get(i).getTipoAlimento() == currentCategoria.getTipoAlimento())
+                igual = 1;
+        if(igual == 0) categoriaAlimentos.add(currentCategoria);
 
         return convertView;
     }
