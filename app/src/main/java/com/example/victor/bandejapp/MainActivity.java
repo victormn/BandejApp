@@ -2,19 +2,16 @@ package com.example.victor.bandejapp;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
-
+import java.net.Socket;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ArrayList<String> dataString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
         final MainFragmentList fragment = (MainFragmentList) getFragmentManager().findFragmentById(R.id.categoriaAlimentoFrag);
 
+        dataString = new ArrayList<>();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -34,13 +33,21 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < categoriaAlimentos.size(); i++) {
 
                         if (categoriaAlimentos.get(i).isCheckAlimento()) {
-
-
+                            dataString.add(categoriaAlimentos.get(i).getTipoAlimento());
+                            dataString.add(Float.toString(categoriaAlimentos.get(i).getRatingAlimento()));
+                            dataString.add(Boolean.toString(categoriaAlimentos.get(i).isOpt1Alimento()));
+                            dataString.add(Boolean.toString(categoriaAlimentos.get(i).isOpt2Alimento()));
+                            dataString.add(Boolean.toString(categoriaAlimentos.get(i).isOpt3Alimento()));
                         }
 
                     }
-            }
-        });
+
+                    for (int i = 0; i < dataString.size(); i++){
+                        System.out.println(dataString.get(i));
+                        //sendData(dataString.get(i));
+                    }
+                }
+            });
 
     }
 
@@ -49,6 +56,33 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    public void sendData(final String dataString){
+
+        final Client socket = new Client("192.168.0.8", 1234);
+        socket.setClientCallback(new Client.ClientCallback () {
+            @Override
+            public void onMessage(String message) {
+            }
+
+            @Override
+            public void onConnect(Socket s) {
+                socket.send(dataString);
+                socket.disconnect();
+            }
+
+            @Override
+            public void onDisconnect(Socket socket, String message) {
+            }
+
+            @Override
+            public void onConnectError(Socket socket, String message) {
+            }
+        });
+
+        socket.connect();
+
     }
 
 /*    @Override
