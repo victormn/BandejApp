@@ -6,8 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,16 +45,10 @@ public class MainActivity extends AppCompatActivity {
                         if (categoriaAlimentos.get(i).isCheckAlimento()) {
                             dataString.add(categoriaAlimentos.get(i).getTipoAlimento());
                             dataString.add(Float.toString(categoriaAlimentos.get(i).getRatingAlimento()));
-                            dataString.add(Boolean.toString(categoriaAlimentos.get(i).isOpt1Alimento()));
-                            dataString.add(Boolean.toString(categoriaAlimentos.get(i).isOpt2Alimento()));
-                            dataString.add(Boolean.toString(categoriaAlimentos.get(i).isOpt3Alimento()));
                         }
-
                     }
-
-                    for (int i = 0; i < dataString.size(); i++){
-                        System.out.println(dataString.get(i));
-                        //sendData(dataString.get(i));
+                    for (int i = 0; i < dataString.size(); i+=2){
+                        sendData(dataString.get(i), dataString.get(i+1));
                     }
                 }
             });
@@ -58,30 +62,35 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void sendData(final String dataString){
+    public void sendData(final String categoria, final String rating){
 
-        final Client socket = new Client("192.168.0.8", 1234);
-        socket.setClientCallback(new Client.ClientCallback () {
+        final RequestQueue queue = Volley.newRequestQueue(this);
+
+        //Instantiate the RequestQueue
+        String url = "http://hsdh.dlinkddns.com:1337/vote";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println("Response is: "+ response.substring(0,500));
+                    }
+                }, new Response.ErrorListener() {
             @Override
-            public void onMessage(String message) {
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("Responde error");
             }
-
+        }){
             @Override
-            public void onConnect(Socket s) {
-                socket.send(dataString);
-                socket.disconnect();
+            protected Map<String,String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put(categoria, rating);
+                return params;
             }
+        };
 
-            @Override
-            public void onDisconnect(Socket socket, String message) {
-            }
-
-            @Override
-            public void onConnectError(Socket socket, String message) {
-            }
-        });
-
-        socket.connect();
+        queue.add(stringRequest);
 
     }
 
