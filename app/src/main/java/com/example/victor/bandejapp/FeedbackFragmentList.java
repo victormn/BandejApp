@@ -15,7 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class MainFragmentList extends ListFragment {
+public class FeedbackFragmentList extends ListFragment {
 
 
     private ArrayList<CategoriaAlimento> categoriaAlimentos;
