@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,13 +45,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null){
-            if(result.getContents() == null){
-                Toast.makeText(this, "Leitura cancelada", Toast.LENGTH_LONG).show();
-            }
-            else {
-                Intent intent = new Intent(getApplicationContext(), FeedbackActivity.class);
-                intent.putExtra(EXTRA_QRCODE_RU_NAME, result.getContents());
-                startActivity(intent);
+            if(result.getContents() != null){
+
+                // Verificando a validade do QR Code
+                String[] split = result.getContents().split("_");
+
+                if(split[0].equals("BDJ#")) {
+                    Intent intent = new Intent(getApplicationContext(), FeedbackActivity.class);
+                    intent.putExtra(EXTRA_QRCODE_RU_NAME, split[1]);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getBaseContext(), "QR Code Inválido!", Toast.LENGTH_LONG).show();
+                }
             }
         }
         else {

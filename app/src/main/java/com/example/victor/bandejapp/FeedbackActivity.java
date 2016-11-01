@@ -31,7 +31,7 @@ public class FeedbackActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        String title = getIntent().getStringExtra(MainActivity.EXTRA_QRCODE_RU_NAME);
+        final String title = getIntent().getStringExtra(MainActivity.EXTRA_QRCODE_RU_NAME);
         setTitle(title);
 
         final FeedbackFragmentList fragment = (FeedbackFragmentList) getFragmentManager().findFragmentById(R.id.categoriaAlimentoFrag);
@@ -53,11 +53,14 @@ public class FeedbackActivity extends AppCompatActivity {
 //                            dataString.add(Float.toString(categoriaAlimentos.get(i).getRatingAlimento()));
 //                        }
 //                    }
-//                    for (int i = 0; i < dataString.size(); i+=2){
+//                    for (int i = 0; i < dataString.size(); i+=2){ // nao esta considerando o title
 //                        sendData(dataString.get(i), dataString.get(i+1));
 //                    }
+//                    for (int i = 0; i < dataString.size(); i+=2){ // esta considerando o title, tem que mudar a funcao sendData
+//                        sendData(dataString.get(i), dataString.get(i+1), title);
+//                    }
 
-                    Toast.makeText(getApplicationContext(), "Feedback Enviado :)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Feedback Enviado!", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -101,19 +104,4 @@ public class FeedbackActivity extends AppCompatActivity {
         queue.add(stringRequest);
 
     }
-
-/*    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
 }
