@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,6 +31,9 @@ public class FeedbackActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        String title = getIntent().getStringExtra(MainActivity.EXTRA_QRCODE_RU_NAME);
+        setTitle(title);
+
         final FeedbackFragmentList fragment = (FeedbackFragmentList) getFragmentManager().findFragmentById(R.id.categoriaAlimentoFrag);
 
         dataString = new ArrayList<>();
@@ -41,20 +45,19 @@ public class FeedbackActivity extends AppCompatActivity {
 
                     dataString.clear();
 
-                    ArrayList<CategoriaAlimento> categoriaAlimentos = fragment.getCategoriaAlimentoAdapter().getCategoriaAlimentos();
-                    for (int i = 0; i < categoriaAlimentos.size(); i++) {
+//                    ArrayList<CategoriaAlimento> categoriaAlimentos = fragment.getCategoriaAlimentoAdapter().getCategoriaAlimentos();
+//                    for (int i = 0; i < categoriaAlimentos.size(); i++) {
+//
+//                        if (categoriaAlimentos.get(i).isCheckAlimento()) {
+//                            dataString.add(categoriaAlimentos.get(i).getTipoAlimento());
+//                            dataString.add(Float.toString(categoriaAlimentos.get(i).getRatingAlimento()));
+//                        }
+//                    }
+//                    for (int i = 0; i < dataString.size(); i+=2){
+//                        sendData(dataString.get(i), dataString.get(i+1));
+//                    }
 
-                        if (categoriaAlimentos.get(i).isCheckAlimento()) {
-                            dataString.add(categoriaAlimentos.get(i).getTipoAlimento());
-                            dataString.add(Float.toString(categoriaAlimentos.get(i).getRatingAlimento()));
-                        }
-                    }
-                    for (int i = 0; i < dataString.size(); i+=2){
-                        sendData(dataString.get(i), dataString.get(i+1));
-                    }
-
-                    Snackbar.make(view, "Feedback Enviado :)", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    Toast.makeText(getApplicationContext(), "Feedback Enviado :)", Toast.LENGTH_SHORT).show();
                 }
             });
 
