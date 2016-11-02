@@ -4,15 +4,20 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.victor.bandejapp.DataBase.DBAdapter;
+import com.example.victor.bandejapp.DataBase.TimeStamp;
+import com.example.victor.bandejapp.Toolbox.CaptureActivityPortrait;
+import com.example.victor.bandejapp.Feedback.FeedbackActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends AppCompatActivity {
+
+    private TimeStamp timeStamp;
 
     public final static String EXTRA_QRCODE_RU_NAME = "com.example.victor.bandejapp.QRCODE_RU_NAME";
 
@@ -29,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onIniciarClick(View view){
+
+        DBAdapter dbAdapter = new DBAdapter(getBaseContext());
+        dbAdapter.open();
+        timeStamp = dbAdapter.getTimeStamp();
+        dbAdapter.close();
+
+        // Fazer a consideracao do timestamp aqui
 
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);

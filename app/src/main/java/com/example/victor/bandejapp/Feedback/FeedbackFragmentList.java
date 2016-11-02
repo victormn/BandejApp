@@ -1,22 +1,20 @@
-package com.example.victor.bandejapp;
+package com.example.victor.bandejapp.Feedback;
 
 
 import android.app.ListFragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RatingBar;
-import android.widget.TextView;
+
+import com.example.victor.bandejapp.CategoriaAlimento.CategoriaAlimento;
+import com.example.victor.bandejapp.CategoriaAlimento.CategoriaAlimentoAdapter;
+import com.example.victor.bandejapp.DataBase.DBAdapter;
+import com.example.victor.bandejapp.DataBase.TimeStamp;
 
 import java.util.ArrayList;
 
 
 public class FeedbackFragmentList extends ListFragment {
-
 
     private ArrayList<CategoriaAlimento> categoriaAlimentos;
     private CategoriaAlimentoAdapter categoriaAlimentosAdapter;

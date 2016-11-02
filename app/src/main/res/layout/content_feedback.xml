@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".FeedbackActivity"
+    tools:context=".Feedback.FeedbackActivity"
     tools:showIn="@layout/activity_feedback">
 
     <fragment
         android:id="@+id/categoriaAlimentoFrag"
-        android:name="com.example.victor.bandejapp.FeedbackFragmentList"
+        android:name="com.example.victor.bandejapp.Feedback.FeedbackFragmentList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

@@ -1,7 +1,6 @@
-package com.example.victor.bandejapp;
+package com.example.victor.bandejapp.CategoriaAlimento;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.example.victor.bandejapp.CategoriaAlimento.CategoriaAlimento;
+import com.example.victor.bandejapp.R;
+
 import java.util.ArrayList;
 
 /**
@@ -69,10 +72,17 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        // Settando a visibilidade do RatingBar e dos CheckBox
+        // Settando a visibilidade do RatingBar
         if (viewHolder.checkBox.isChecked()) {
             viewHolder.ratingBar.setVisibility(View.VISIBLE);
-            viewHolder.optLayout.setVisibility(View.VISIBLE);
+
+            // Settando a visibilidade das Opcoes
+            if(viewHolder.ratingBar.getRating() > 0){
+                viewHolder.optLayout.setVisibility(View.VISIBLE);
+            } else{
+                viewHolder.optLayout.setVisibility(View.GONE);
+            }
+
         } else {
             viewHolder.ratingBar.setVisibility(View.GONE);
             viewHolder.optLayout.setVisibility(View.GONE);
