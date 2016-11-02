@@ -15,9 +15,15 @@ import com.example.victor.bandejapp.Feedback.FeedbackActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
 
     private TimeStamp timeStamp;
+    private final int ALMOCO_INF = 11;
+    private final int ALMOCO_SUP = 14;
+    private final int JANTA_INF = 17;
+    private final int JANTA_SUP = 20;
 
     public final static String EXTRA_QRCODE_RU_NAME = "com.example.victor.bandejapp.QRCODE_RU_NAME";
 
@@ -40,16 +46,49 @@ public class MainActivity extends AppCompatActivity {
         timeStamp = dbAdapter.getTimeStamp();
         dbAdapter.close();
 
-        // Fazer a consideracao do timestamp aqui
+        // Calculando o dia e a refeicao atual
 
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-        integrator.setPrompt("Faça a leitura do código do Restaurante Universitário que deseja opinar");
-        integrator.setCameraId(0);
-        integrator.setBeepEnabled(false);
-        integrator.setBarcodeImageEnabled(false);
-        integrator.setCaptureActivity(CaptureActivityPortrait.class);
-        integrator.initiateScan();
+        // --- DIA ATUAL
+        Calendar calendar = Calendar.getInstance();
+        String auxDia = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+        if(calendar.get(Calendar.DAY_OF_MONTH) < 10) {
+            auxDia = "0" + Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+        }
+        int currentDia = Integer.parseInt(Integer.toString(calendar.get(Calendar.YEAR)) + Integer.toString(calendar.get(Calendar.MONTH) + 1) + auxDia);
+
+        // --- REFEICAO ATUAL
+        int currentRefeicao = 2; // nao pode opinar com esse valor
+        if((calendar.get(Calendar.HOUR_OF_DAY) < ALMOCO_SUP) && (calendar.get(Calendar.HOUR_OF_DAY) >= ALMOCO_INF)){
+            currentRefeicao = 0;
+        }
+        else if((calendar.get(Calendar.HOUR_OF_DAY) < JANTA_SUP) && (calendar.get(Calendar.HOUR_OF_DAY) >= JANTA_INF)){
+            currentRefeicao = 1;
+        }
+
+        // Verificando a validade
+        int error = 0;
+        // 0 -> nenhum erro;
+        // 1 -> ja opinou nesta refeicao hoje;
+        // 2 -> nao esta na hora de opinar
+        if(currentDia == timeStamp.getDia()){
+            if(currentRefeicao == timeStamp.getRefeicao()) error = 1;
+            if(currentRefeicao == 2) error = 2;
+        }
+
+        if(error == 0) {
+            IntentIntegrator integrator = new IntentIntegrator(this);
+            integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+            integrator.setPrompt("Faça a leitura do código do Restaurante Universitário que deseja opinar");
+            integrator.setCameraId(0);
+            integrator.setBeepEnabled(false);
+            integrator.setBarcodeImageEnabled(false);
+            integrator.setCaptureActivity(CaptureActivityPortrait.class);
+            integrator.initiateScan();
+        }else if(error == 1){
+            Toast.makeText(getBaseContext(), "Já opinou nesta refeição hoje!", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(getBaseContext(), "Ainda não está na hora de opinar! Aguarde a próxima refeição!", Toast.LENGTH_LONG).show();
+        }
 
     }
 

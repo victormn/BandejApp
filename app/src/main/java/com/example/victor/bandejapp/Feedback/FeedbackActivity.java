@@ -1,5 +1,8 @@
 package com.example.victor.bandejapp.Feedback;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -101,7 +104,13 @@ public class FeedbackActivity extends AppCompatActivity {
 //                            sendData(dataString.get(i), dataString.get(i+1), title, dia, refeicao);
 //                        }
 
-                        Toast.makeText(getApplicationContext(), "Feedback Enviado!", Toast.LENGTH_SHORT).show();
+                        if(isNetworkAvailable(getBaseContext()))
+                            Toast.makeText(getApplicationContext(), "Feedback Enviado!", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(getApplicationContext(), "Sem conexão com a internet!", Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
                     }
                 }
             });
@@ -145,5 +154,10 @@ public class FeedbackActivity extends AppCompatActivity {
 
         queue.add(stringRequest);
 
+    }
+
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }
