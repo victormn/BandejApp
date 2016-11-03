@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -32,6 +33,8 @@ public class FeedbackActivity extends AppCompatActivity {
     private ArrayList<String> dataString;
     private String title, dia, refeicao;
     private int dbDia, dbRefeicao;
+
+    private final int LIMITE_ALMOCO_JANTA = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +83,7 @@ public class FeedbackActivity extends AppCompatActivity {
                         dbDia = Integer.parseInt(dia);
 
                         // Verificando a refeicao
-                        if(calendar.get(Calendar.HOUR_OF_DAY) < 15){
+                        if(calendar.get(Calendar.HOUR_OF_DAY) < LIMITE_ALMOCO_JANTA){
                             refeicao = "almoco";
                             dbRefeicao = 0;
                         }
@@ -92,7 +95,7 @@ public class FeedbackActivity extends AppCompatActivity {
                         // Atualizando valor na base de dados
                         DBAdapter dbAdapter = new DBAdapter(getBaseContext());
                         dbAdapter.open();
-                        dbAdapter.deleteFlag(0);
+                        dbAdapter.deleteAll();
                         dbAdapter.createTimeStamp(dbDia, dbRefeicao);
                         dbAdapter.close();
 

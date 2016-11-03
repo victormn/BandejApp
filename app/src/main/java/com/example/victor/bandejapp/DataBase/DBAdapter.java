@@ -66,8 +66,8 @@ public class DBAdapter {
         return timeStamp;
     }
 
-    public long deleteFlag(long idToDelete){
-        return sqlDB.delete(FEEDBACK_TABLE, COLUMN_ID + " = " + idToDelete, null);
+    public void deleteAll(){
+        sqlDB.execSQL("delete from "+ FEEDBACK_TABLE);
     }
 
     public TimeStamp getTimeStamp() {

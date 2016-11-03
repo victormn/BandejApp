@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
         // 2 -> nao esta na hora de opinar
         if(currentDia == timeStamp.getDia()){
             if(currentRefeicao == timeStamp.getRefeicao()) error = 1;
-            if(currentRefeicao == 2) error = 2;
         }
+        if(currentRefeicao == 2) error = 2;
 
         if(error == 0) {
             IntentIntegrator integrator = new IntentIntegrator(this);
