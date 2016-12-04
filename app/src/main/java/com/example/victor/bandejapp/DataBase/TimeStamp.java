@@ -1,8 +1,6 @@
 package com.example.victor.bandejapp.DataBase;
 
-/**
- * Created by Victor on 02/11/2016.
- */
+
 public class TimeStamp {
 
     private int dia, refeicao;

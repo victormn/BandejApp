@@ -19,11 +19,12 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TimeStamp timeStamp;
-    private final int ALMOCO_INF = 11;
-    private final int ALMOCO_SUP = 14;
-    private final int JANTA_INF = 17;
-    private final int JANTA_SUP = 20;
+    private final static int ALMOCO_INF = 11;
+    private final static int ALMOCO_SUP = 14;
+    private final static int JANTA_INF = 17;
+    private final static int JANTA_SUP = 20;
+    private final static boolean COM_RESTRICOES = false;
+    private final static String TAG = "BDJ#";
 
     public final static String EXTRA_QRCODE_RU_NAME = "com.example.victor.bandejapp.QRCODE_RU_NAME";
 
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         DBAdapter dbAdapter = new DBAdapter(getBaseContext());
         dbAdapter.open();
-        timeStamp = dbAdapter.getTimeStamp();
+        TimeStamp timeStamp = dbAdapter.getTimeStamp();
         dbAdapter.close();
 
         // Calculando o dia e a refeicao atual
@@ -70,24 +71,27 @@ public class MainActivity extends AppCompatActivity {
         // 0 -> nenhum erro;
         // 1 -> ja opinou nesta refeicao hoje;
         // 2 -> nao esta na hora de opinar
-        if(currentDia == timeStamp.getDia()){
-            if(currentRefeicao == timeStamp.getRefeicao()) error = 1;
+
+        if(COM_RESTRICOES) {
+            if (currentDia == timeStamp.getDia()) {
+                if (currentRefeicao == timeStamp.getRefeicao()) error = 1;
+            }
+            if (currentRefeicao == 2) error = 2;
         }
-        if(currentRefeicao == 2) error = 2;
 
         if(error == 0) {
             IntentIntegrator integrator = new IntentIntegrator(this);
             integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-            integrator.setPrompt("Faça a leitura do código do Restaurante Universitário que deseja opinar");
+            integrator.setPrompt(getResources().getString(R.string.qr_code));
             integrator.setCameraId(0);
             integrator.setBeepEnabled(false);
             integrator.setBarcodeImageEnabled(false);
             integrator.setCaptureActivity(CaptureActivityPortrait.class);
             integrator.initiateScan();
         }else if(error == 1){
-            Toast.makeText(getBaseContext(), "Já opinou nesta refeição hoje!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), getResources().getString(R.string.ja_opinou), Toast.LENGTH_LONG).show();
         }else{
-            Toast.makeText(getBaseContext(), "Ainda não está na hora de opinar! Aguarde a próxima refeição!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), getResources().getString(R.string.nao_esta_na_hora), Toast.LENGTH_LONG).show();
         }
 
     }
@@ -101,13 +105,13 @@ public class MainActivity extends AppCompatActivity {
                 // Verificando a validade do QR Code
                 String[] split = result.getContents().split("_");
 
-                if(split[0].equals("BDJ#")) {
+                if(split[0].equals(TAG)) {
                     Intent intent = new Intent(getApplicationContext(), FeedbackActivity.class);
                     intent.putExtra(EXTRA_QRCODE_RU_NAME, split[1]);
                     startActivity(intent);
                 }
                 else{
-                    Toast.makeText(getBaseContext(), "QR Code Inválido!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), getResources().getString(R.string.qr_code_invalido), Toast.LENGTH_LONG).show();
                 }
             }
         }

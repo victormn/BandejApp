@@ -9,18 +9,12 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
-import com.example.victor.bandejapp.CategoriaAlimento.CategoriaAlimento;
 import com.example.victor.bandejapp.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Victor on 20/09/2016.
- */
 public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
 
     private ArrayList<CategoriaAlimento> categoriaAlimentos;
@@ -91,19 +85,19 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
 
         // Settando o texto das opções
         if (currentCategoria.getRatingAlimento() <= 1.5f){
-            viewHolder.opt1.setText("Gosto Ruim");
-            viewHolder.opt2.setText("Temperatura Ruim");
-            viewHolder.opt3.setText("Não gosto desse alimento");
+            viewHolder.opt1.setText(getContext().getResources().getString(R.string.gosto_ruim));
+            viewHolder.opt2.setText(getContext().getResources().getString(R.string.temperatura_ruim));
+            viewHolder.opt3.setText(getContext().getResources().getString(R.string.nao_gosto));
 
         }else {
             if (currentCategoria.getRatingAlimento() <= 3.5f) {
-                viewHolder.opt1.setText("Sem Gosto");
-                viewHolder.opt2.setText("Temperatura Razoável");
-                viewHolder.opt3.setText("Gosto pouco desse alimento");
+                viewHolder.opt1.setText(getContext().getResources().getString(R.string.gosto_sem));
+                viewHolder.opt2.setText(getContext().getResources().getString(R.string.temperatura_razoavel));
+                viewHolder.opt3.setText(getContext().getResources().getString(R.string.gosto_pouco));
             }else{
-                viewHolder.opt1.setText("Saborosa");
-                viewHolder.opt2.setText("Temperatura Ideal");
-                viewHolder.opt3.setText("Gosto muito desse alimento");
+                viewHolder.opt1.setText(getContext().getResources().getString(R.string.gosto_bom));
+                viewHolder.opt2.setText(getContext().getResources().getString(R.string.temperatura_ideal));
+                viewHolder.opt3.setText(getContext().getResources().getString(R.string.gosto_muito));
             }
         }
 
@@ -134,7 +128,7 @@ public class CategoriaAlimentoAdapter extends ArrayAdapter<CategoriaAlimento> {
         int igual = 0;
 
         for (int i = 0; i<categoriaAlimentos.size(); i++)
-            if(categoriaAlimentos.get(i).getTipoAlimento() == currentCategoria.getTipoAlimento())
+            if(categoriaAlimentos.get(i).getTipoAlimento().equals(currentCategoria.getTipoAlimento()))
                 igual = 1;
         if(igual == 0) categoriaAlimentos.add(currentCategoria);
 

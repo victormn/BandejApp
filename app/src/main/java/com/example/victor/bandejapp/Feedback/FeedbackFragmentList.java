@@ -8,22 +8,19 @@ import android.widget.ListView;
 
 import com.example.victor.bandejapp.CategoriaAlimento.CategoriaAlimento;
 import com.example.victor.bandejapp.CategoriaAlimento.CategoriaAlimentoAdapter;
-import com.example.victor.bandejapp.DataBase.DBAdapter;
-import com.example.victor.bandejapp.DataBase.TimeStamp;
 
 import java.util.ArrayList;
 
 
 public class FeedbackFragmentList extends ListFragment {
 
-    private ArrayList<CategoriaAlimento> categoriaAlimentos;
     private CategoriaAlimentoAdapter categoriaAlimentosAdapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        categoriaAlimentos = new ArrayList<>();
+        ArrayList<CategoriaAlimento> categoriaAlimentos = new ArrayList<>();
         categoriaAlimentos.add(new CategoriaAlimento("Arroz"));
         categoriaAlimentos.add(new CategoriaAlimento("Arroz Integral"));
         categoriaAlimentos.add(new CategoriaAlimento("Feijão"));

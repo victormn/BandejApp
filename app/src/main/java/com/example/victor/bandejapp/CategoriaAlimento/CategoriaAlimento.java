@@ -1,12 +1,8 @@
 package com.example.victor.bandejapp.CategoriaAlimento;
 
-import android.widget.CheckBox;
-
 import com.example.victor.bandejapp.R;
 
-/**
- * Created by Victor on 20/09/2016.
- */
+
 public class CategoriaAlimento {
 
     private String tipoAlimento;

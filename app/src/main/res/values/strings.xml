@@ -1,8 +1,24 @@
 <resources>
     <string name="app_name">BandejApp</string>
     <string name="action_settings">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="gosto_ruim">Gosto Ruim</string>
+    <string name="temperatura_ruim">Temperatura Ruim</string>
+    <string name="nao_gosto">Não gosto desse alimento</string>
+    <string name="gosto_sem">Sem Gosto</string>
+    <string name="temperatura_razoavel">Temperatura Razoável</string>
+    <string name="gosto_pouco">Gosto pouco desse alimento</string>
+    <string name="gosto_bom">Saborosa</string>
+    <string name="temperatura_ideal">Temperatura Ideal</string>
+    <string name="gosto_muito">Gosto muito desse alimento</string>
+    <string name="qr_code">Faça a leitura do código do Restaurante Universitário que deseja opinar</string>
+    <string name="ja_opinou">Já opinou nesta refeição hoje!</string>
+    <string name="nao_esta_na_hora">Ainda não está na hora de opinar! Aguarde a próxima refeição!</string>
+    <string name="qr_code_invalido">QR Code Inválido!</string>
+    <string name="error">Erro no envio</string>
+    <string name="error_campus">Erro na identificação do Campus</string>
+    <string name="feedback">Feedback Enviado!</string>
+    <string name="internet">Sem conexão com a internet!</string>
+    <string name="nao_opinou">Você não opinou!</string>
 </resources>

@@ -6,10 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import java.util.ArrayList;
-/**
- * Created by Victor on 02/11/2016.
- */
+
 public class DBAdapter {
 
 
@@ -86,8 +83,7 @@ public class DBAdapter {
     }
 
     private TimeStamp cursorToTimeStamp(Cursor cursor) {
-        TimeStamp newTimeStamp = new TimeStamp(cursor.getInt(1), cursor.getInt(2));
-        return newTimeStamp;
+        return new TimeStamp(cursor.getInt(1), cursor.getInt(2));
     }
 
     private static class DBHelper extends SQLiteOpenHelper {
